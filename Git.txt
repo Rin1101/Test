@@ -1,0 +1,71 @@
+
+================================ 基本操作 ================================
+git init <repo>
+git clone <url>
+git clone <url> <newdir>
+
+touch <filename>              //创建文件
+git add <file> <file> ……    //将文件添加到缓存
+git add .                     //将所有更新的文件添加到缓存
+
+git status 或 git status -s   //查看项目当前状态
+{
+    ?? : 未保存
+    A  : 已添加（Add)
+    M  : 修改并已添加
+     M : 修改但未添加
+    AM : 添加后有修改（Add & Modified)
+}
+
+git diff            //尚未缓存的改动
+git diff --stat     //显示摘要而非整个diff
+git diff --cached   //查看已缓存的改动
+git diff HEAD       //查看已缓存的与未缓存的所有改动
+
+git reset HEAD                 //取消已缓存到内容
+git reset HEAD -- <filename>   //取消已缓存到内容（取消git add）
+
+git commit -m <"Text">   //将缓存区内容添加到仓库中（上传文件到本地仓库）并提供提交注释
+           -am <"Text">  //添加到缓存并提交
+git push                       //上传文件到github项目仓库（上传所有分支到远程对应分支上）
+
+git mv <srcfile> <destfile>    //移动或重命名
+git rm <file>      //从工作目录中删除
+git rm –r ……    //递归删除所有子目录与文件    
+git rm -f <file>   //从工作目录与暂存区删除
+git rm --cached <file>    //仅从暂存区删除
+
+
+================================ 分支管理 ================================
+使用分支意味着你可以从开发主线上分离开来，然后在不影响主线的同时继续工作。
+
+git branch                   //列出分支
+git branch <branchname>      //创建分支
+git branch -d <branchname>   //删除分支（不能删除当前分支）
+若删除的分支未合并到当前分支则会出现提示。如确定不合并直接删除，则执行命令：git branch –D dev2 强制删除。
+
+git checkout <branchname>       //切换分支
+git checkout -b <branchname>    //创建并切换到该分支
+
+git branch -m <oldname> <newname>    //分支重命名（-M会强制覆盖，慎用）
+git diff <branch_1> <branch_2>       //查看两个分支的不同
+
+git merge <branchname>      //将某分支合并到当前分支
+对发生冲突到文件，进入文件修改并重新 git commit -am 即可
+
+git push origin <branchname>   //上传当前分支到远程到某分支上（origin 是默认的远程版本库名称）
+git push -u origin <branchname>    //将本地的某分支推送到origin主机，同时指定origin为默认主机（只需一次指定）
+
+git fetch      //相当于是从远程获取最新版本到本地
+git pull       //同步一个在你本地有版本的远程项目仓库更新内容到你的本地库（尽量用fetch + merge）
+
+
+================================ 历史记录 ================================
+git log             //列出历史提交记录
+git log --oneline   //精简版历史提交记录
+git log --reverse   //参数来逆向显示所有日志
+git log --graph     //查看历史中何时出现了分支、合并命令
+--author=<author>      //查找指定用户的提交日志
+--since 和 --before    //指定日期，--before={3.weeks.ago}
+--until 和 --after     //指定日期--after={2010-04-18}
+//更多 git log 命令可查看：http://git-scm.com/docs/git-log
